@@ -11,11 +11,15 @@ def run_pipeline():
     X_train, X_test, y_train, y_test = preprocess_data(df)
 
     print("STEP 3: Training model...")
-    accuracy = train_model(X_train, y_train, X_test, y_test)
+    acc = train_model(X_train, y_train, X_test, y_test)
 
-    print(f"Training complete. Accuracy: {accuracy}")
+    print("Pipeline finished. Accuracy:", acc)
 
 if __name__ == "__main__":
     mlflow.set_experiment("MLflow-Pipeline")
-    with mlflow.start_run():
+    with mlflow.start_run(run_name="full_pipeline"):
+
         run_pipeline()
+
+        # End safe
+        mlflow.end_run()

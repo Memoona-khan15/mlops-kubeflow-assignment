@@ -1,11 +1,21 @@
 import mlflow
 import pandas as pd
+import os
 
-def extract_data(path="data/raw_data.csv"):
-    mlflow.set_experiment("MLflow-Pipeline")
-    with mlflow.start_run(run_name="extract_data"):
-        df = pd.read_csv(path)
-        mlflow.log_param("rows", df.shape[0])
-        mlflow.log_param("columns", list(df.columns))
-        mlflow.log_artifact(path)
-        return df
+def extract_data():
+    # Create data folder
+    os.makedirs("data", exist_ok=True)
+
+    # Load dataset
+    from sklearn.datasets import load_breast_cancer
+    data = load_breast_cancer(as_frame=True)
+    df = data.frame
+    df.rename(columns={"target": "label"}, inplace=True)
+
+    df.to_csv("data/raw_data.csv", index=False)
+
+    # Log dataset file (safe)
+    mlflow.log_artifact("data/raw_data.csv")
+
+    print("Saved data/raw_data.csv with 'label' column.")
+    return df
