@@ -2,25 +2,23 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
 
 jobs:
-  build:
+  run-mlflow-pipeline:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
+    - name: Checkout Repo
       uses: actions/checkout@v3
 
-    - name: Set up Python
+    - name: Setup Python
       uses: actions/setup-python@v4
       with:
         python-version: "3.10"
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
 
-    - name: Run pipeline
-      run: |
-        python mlflow_pipeline.py
+    - name: Run MLflow Pipeline
+      run: python mlflow_pipeline.py

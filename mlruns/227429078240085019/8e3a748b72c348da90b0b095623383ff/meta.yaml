@@ -1,0 +1,14 @@
+artifact_uri: file:///C:/Users/Administrator/mlops-kubeflow-assignment/mlruns/227429078240085019/8e3a748b72c348da90b0b095623383ff/artifacts
+end_time: 1764415512382
+entry_point_name: ''
+experiment_id: '227429078240085019'
+lifecycle_stage: active
+run_id: 8e3a748b72c348da90b0b095623383ff
+run_name: preprocess
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1764415512240
+status: 3
+tags: []
+user_id: Maimona
