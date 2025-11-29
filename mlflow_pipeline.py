@@ -1,7 +1,13 @@
 import mlflow
+import os
 from src.extract_data import extract_data
 from src.preprocess_data import preprocess_data
 from src.model_training import train_model
+
+# Force MLflow to a safe local path
+os.makedirs("mlruns", exist_ok=True)
+mlflow.set_tracking_uri("file:./mlruns")
+mlflow.set_experiment("MLflow-Pipeline")
 
 def run_pipeline():
     print("STEP 1: Extracting data...")
@@ -16,10 +22,5 @@ def run_pipeline():
     print("Pipeline finished. Accuracy:", acc)
 
 if __name__ == "__main__":
-    mlflow.set_experiment("MLflow-Pipeline")
     with mlflow.start_run(run_name="full_pipeline"):
-
         run_pipeline()
-
-        # End safe
-        mlflow.end_run()
