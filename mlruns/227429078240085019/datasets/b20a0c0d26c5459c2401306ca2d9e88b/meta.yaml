@@ -1,0 +1,9 @@
+digest: '72535565'
+name: dataset
+profile: '{"features_shape": [114, 30], "features_size": 3420, "features_nbytes":
+  27360}'
+schema: '{"mlflow_tensorspec": {"features": "[{\"type\": \"tensor\", \"tensor-spec\":
+  {\"dtype\": \"float64\", \"shape\": [-1, 30]}}]", "targets": null}}'
+source: '{"tags": {"mlflow.user": "Maimona", "mlflow.source.name": "mlflow_pipeline.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "4198a062e41ebc3522a36dee2b37dbffc5d9ae7e"}}'
+source_type: code

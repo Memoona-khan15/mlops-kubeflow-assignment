@@ -1,0 +1,6 @@
+artifact_location: file:///C:/Users/Administrator/mlops-kubeflow-assignment/mlruns/227429078240085019
+creation_time: 1764361397939
+experiment_id: '227429078240085019'
+last_update_time: 1764361397939
+lifecycle_stage: active
+name: MLflow-Pipeline
