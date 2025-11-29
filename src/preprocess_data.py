@@ -1,28 +1,36 @@
-import mlflow
-from sklearn.preprocessing import StandardScaler
+import pandas as pd
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+import mlflow
 import joblib
 import os
+import json
 
-def preprocess_data(df, target="label"):
-    mlflow.set_experiment("MLflow-Pipeline")
-    with mlflow.start_run(run_name="preprocess"):
+def preprocess_data(df):
+    target = "label"
 
-        if target not in df.columns:
-            raise ValueError(f"Column '{target}' not found. Columns = {list(df.columns)}")
+    if target not in df.columns:
+        raise ValueError(f"Target column '{target}' not found. CSV columns = {list(df.columns)}")
 
-        X = df.drop(columns=[target])
-        y = df[target]
+    # Split features/target
+    X = df.drop(columns=[target])
+    y = df[target]
 
-        scaler = StandardScaler()
-        X_scaled = scaler.fit_transform(X)
+    # Scaling
+    scaler = StandardScaler()
+    X_scaled = scaler.fit_transform(X)
 
-        os.makedirs("artifacts", exist_ok=True)
-        joblib.dump(scaler, "artifacts/scaler.pkl")
-        mlflow.log_artifact("artifacts/scaler.pkl")
+    # Train-test split
+    X_train, X_test, y_train, y_test = train_test_split(X_scaled, y, test_size=0.2, random_state=42)
 
-        X_train, X_test, y_train, y_test = train_test_split(
-            X_scaled, y, test_size=0.2, random_state=42
-        )
+    # Create safe artifact directory
+    os.makedirs("artifacts", exist_ok=True)
 
-        return X_train, X_test, y_train, y_test
+    # Save scaler
+    scaler_path = "artifacts/scaler.pkl"
+    joblib.dump(scaler, scaler_path)
+
+    # Log safely
+    mlflow.log_artifact(scaler_path)
+
+    return X_train, X_test, y_train, y_test
